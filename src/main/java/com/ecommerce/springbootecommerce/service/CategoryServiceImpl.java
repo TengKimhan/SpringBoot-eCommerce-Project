@@ -22,4 +22,15 @@ public class CategoryServiceImpl implements CategoryService {
         category.setCategoryId(nextId++);
         categories.add(category);
     }
+
+    public String deleteCategory(Long categoryId) {
+        Category category = (Category) categories.stream()
+                .filter(c -> c.getCategoryId().equals(categoryId))
+                .findFirst()
+                .orElse(null);
+        if (category == null) return "Category not found";
+
+        categories.remove(category);
+        return "Category with " + category.getCategoryId() + " deleted successfully!";
+    }
 }
